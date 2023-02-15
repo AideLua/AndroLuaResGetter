@@ -20,7 +20,7 @@
 
 使用 `res.xxx` 使用全局变量 `R` 内容，一般为 `com.androlua.R`
 
-> 如果您使用 Gradle 构建应用，可以先添加使用 `R=luajava.bindClass(activity.getPackageName()..".R")` 来使用主模块中的 `R` 。
+> 如果您使用 Gradle 构建应用，可以先添加 `R=luajava.bindClass(activity.getPackageName()..".R")` 使用主 Module 中的 `<包名>.R` 。
 
 使用 `android.res.xxx` 使用全局变量 `android.R` 内容，一般为 `android.R`
 
