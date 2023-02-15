@@ -1,37 +1,64 @@
 # AndroLua+ Res Getter
 
-#### 介绍
-在AmdroLua+中很方便地获取资源数据
+## 介绍
 
-#### 软件架构
-软件架构说明
+在 AndroLua+ 中很方便地获取资源数据
+
+## 软件架构
+
+* __res.lua__: 模块
+
+## 安装教程
+
+1.  复制 `res.lua` 到 `你的工程/lua` 内
+2.  在 `main.lua` 内导入 `import` 模块: `require "import"`
+3.  导入 `res` 模块: `import "res"`
+
+## 使用说明
+
+访问规则：`res.<类型>[.attr].<名称>`
+
+使用 `res.xxx` 使用全局变量 `R` 内容，一般为 `com.androlua.R`
+
+> 如果您使用 Gradle 构建应用，可以先添加使用 `R=luajava.bindClass(activity.getPackageName()..".R")` 来使用主模块中的 `R` 。
+
+使用 `android.res.xxx` 使用全局变量 `android.R` 内容，一般为 `android.R`
+
+您也可以使用 `res(id).xxx` 使用特定主题的值
+
+示例（以 AndroLuaX 为例）：
+
+``` lua
+-- 获取 colorPrimary 颜色值
+-- R.attr.colorPrimary
+colorPrimary = res.color.attr.colorPrimary
+
+-- 获取 android 的 colorPrimary 颜色值
+-- android.R.attr.colorPrimary
+colorPrimaryAndroid = android.res.color.attr.colorPrimary
+
+-- 获取当前主题的 actionBarTheme 主题ID
+-- R.attr.actionBarTheme
+actionBarThemeId = res.id.attr.actionBarTheme
+
+-- 获取当前主题 actionBarTheme 中的 colorControlNormal 颜色值
+-- R.attr.actionBarTheme
+-- R.attr.colorControlNormal
+actionBarColorControlNormal = res(res.id.attr.actionBarTheme).color.attr.colorControlNormal
+
+-- 获取 seed 颜色
+-- R.color.seed
+seedColor = res.color.seed
+
+-- 获取 android 的 holo_blue_light 颜色
+-- android.R.color.holo_blue_light
+holoBlueLightColor = android.res.color.holo_blue_light
+```
 
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
+## 参与贡献
 
 1.  Fork 本仓库
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)

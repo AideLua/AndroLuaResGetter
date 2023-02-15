@@ -18,16 +18,3 @@ end
 
 print("res.id.attr.actionBarTheme",res.id.attr.actionBarTheme)
 
-local color=res(res.id.attr.actionBarTheme).color.attr.colorControlNormal
---[[
-array=activity.getTheme().obtainStyledAttributes({
-  R.attr.actionBarTheme
-})
-id=array.getResourceId(0,0)
-
-local array = activity.getTheme().obtainStyledAttributes(id,{
-  R.attr.colorControlNormal
-})
-color=array.getColor(0,0)
-]]
-print(Color.red(color),Color.blue(color),Color.green(color))
