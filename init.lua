@@ -1,7 +1,7 @@
 --res=require "res"
 appname="Android Res Getter"
-appver="1.0 (alpha)"
-appcode=1
+appver="1.0 (alpha2)"
+appcode=1002
 appsdk="15"
 path_pattern=""
 packagename="com.androlua.demo"

@@ -4,6 +4,9 @@
 
 在 AndroLua+ 中很方便地获取资源数据
 
+* __Gitee__: <https://gitee.com/AideLua/AndroLuaResGetter>
+* __GitHub__: <https://github.com/AideLua/AndroLuaResGetter>
+
 ## 软件架构
 
 * __res.lua__: 模块
