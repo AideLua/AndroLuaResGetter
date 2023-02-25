@@ -12,13 +12,13 @@ res.id.attr.actionBarTheme
 res(android.res.id.attr.actionBarTheme).color.attr.colorControlNormal
 
 ]]
-local res={}
-res._VERSION="1.0 (alpha2)"
-res._VERSIONCODE=1002
-res._NAME="Android Res Getter"
+local _M={}
+_M._VERSION="1.0 (alpha3) (dev)"
+_M._VERSIONCODE=1003
+_M._NAME="Android Res Getter"
 
 --android.res
-local androidRes=table.clone(res)
+local androidRes=table.clone(_M)
 androidRes._isAndroidRes=true
 android.res=androidRes
 
@@ -161,7 +161,7 @@ resMetatable={
   end,
 }
 
-setmetatable(res,resMetatable)
+setmetatable(_M,resMetatable)
 setmetatable(androidRes,resMetatable)
 
-return res
+return _M

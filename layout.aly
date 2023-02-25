@@ -15,24 +15,28 @@
       TextView,
       text="强调色\nAccent color\n  android.res.color.attr.colorAccent",
       textColor=android.res.color.attr.colorAccent;
+      layout_width="fill",
       padding="2dp";
     },
     {
       TextView,
       text="文字主色的 ColorStateList 类型\nColorStateList type of the primary text color\n  android.res.colorStateList.attr.textColorPrimary",
       textColor=android.res.colorStateList.attr.textColorPrimary;
+      layout_width="fill",
       padding="2dp";
     },
     {
       TextView,
       text="普通颜色资源\nNormal color resources\n  res.color.seed",
       textColor=res.color.seed;
+      layout_width="fill",
       padding="2dp";
     },
     {
       Switch,
       text="普通 ColorStateList 类型资源\nNormal ColorStateList resources\n  res.colorStateList.mtrl_btn_stroke_color_selector",
       textColor=res.colorStateList.mtrl_btn_stroke_color_selector;
+      layout_width="fill",
       padding="2dp";
       checked=true;
     },
@@ -40,12 +44,14 @@
       TextView,
       text="android 下的普通颜色资源\nNormal color resources in android\n  android.res.color.holo_blue_light",
       textColor=android.res.color.holo_blue_light;
+      layout_width="fill",
       padding="2dp";
     },
     {
       TextView,
       text="actionBarTheme 主题的文字主色\nPrimary text color of actionBarTheme\n  android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary",
       textColor=android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary;
+      layout_width="fill",
       padding="2dp";
     },
 
@@ -66,6 +72,7 @@
       android.res.string.copy..
       "\n  android.res.text.copy : "..
       android.res.text.copy;
+      layout_width="fill",
       padding="2dp";
     },
     {
@@ -74,6 +81,7 @@
       res.string.abc_capital_off..
       "\n  res.text.abc_capital_off : "..
       res.text.abc_capital_off;
+      layout_width="fill",
       padding="2dp";
     },
     divider;buildTitle("布尔测试 | Boolean test");
@@ -83,6 +91,7 @@
       tostring(android.res.bool.config_showDefaultHome)..
       "\n  android.res.boolean.config_showDefaultHome : "..
       tostring(android.res.boolean.config_showDefaultHome);
+      layout_width="fill",
       padding="2dp";
     },
     divider;buildTitle("数字测试 | Boolean test");
@@ -92,6 +101,7 @@
       android.res.integer.config_shortAnimTime..
       "\n  android.res.int.config_shortAnimTime : "..
       android.res.int.config_shortAnimTime;
+      layout_width="fill",
       padding="2dp";
     },
     {
@@ -100,6 +110,7 @@
       res.integer.hide_password_duration..
       "\n  res.int.hide_password_duration : "..
       res.int.hide_password_duration;
+      layout_width="fill",
       padding="2dp";
     },
     divider;buildTitle("附：常见资源 | Common resources");
@@ -107,24 +118,28 @@
       TextView,
       text="强调色\nAccent color\n  android.res.color.attr.colorAccent",
       textColor=android.res.color.attr.colorAccent;
+      layout_width="fill",
       padding="2dp";
     },
     {
       TextView,
       text="暗色主色 / 状态栏颜色\nPrimary color / status bar color\n  android.res.color.attr.colorPrimaryDark",
       textColor=android.res.color.attr.colorPrimaryDark;
+      layout_width="fill",
       padding="2dp";
     },
     {
       TextView,
       text="文字主色的 ColorStateList 类型\nColorStateList type of the primary text color\n  android.res.colorStateList.attr.textColorPrimary",
       textColor=android.res.colorStateList.attr.textColorPrimary;
+      layout_width="fill",
       padding="2dp";
     },
     {
       TextView,
       text="表面内容色\nSurface content color\n  res.color.attr.colorOnSurface",
       textColor=res.color.attr.colorOnSurface;
+      layout_width="fill",
       padding="2dp";
     },
 
