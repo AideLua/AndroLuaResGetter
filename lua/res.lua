@@ -1,19 +1,5 @@
---RES资源获取工具
---[[
---颜色
-res.color.attr.colorAccent
-android.res.color.attr.colorAccent
-res.colorStateList.attr.colorAccent
-res.color.attr.colorPrimary
---id
-android.res.id.attr.actionBarTheme
-res.id.attr.actionBarTheme
-
-res(android.res.id.attr.actionBarTheme).color.attr.colorControlNormal
-
-]]
 local _M={}
-_M._VERSION="1.0 (alpha3) (dev)"
+_M._VERSION="1.0 (alpha3)"
 _M._VERSIONCODE=1003
 _M._NAME="Android Res Getter"
 
