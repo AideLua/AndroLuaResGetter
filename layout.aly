@@ -9,51 +9,25 @@
     layout_height="fill",
     padding="8dp";
     id="mainLay";
+    --示例布局在《附》内，上面的都是测试布局
 
     buildTitle("颜色测试 | Color test");
-    {
-      TextView,
-      text="强调色\nAccent color\n  android.res.color.attr.colorAccent",
-      textColor=android.res.color.attr.colorAccent;
-      layout_width="fill",
-      padding="2dp";
-    },
-    {
-      TextView,
-      text="文字主色的 ColorStateList 类型\nColorStateList type of the primary text color\n  android.res.colorStateList.attr.textColorPrimary",
-      textColor=android.res.colorStateList.attr.textColorPrimary;
-      layout_width="fill",
-      padding="2dp";
-    },
-    {
-      TextView,
-      text="普通颜色资源\nNormal color resources\n  res.color.seed",
-      textColor=res.color.seed;
-      layout_width="fill",
-      padding="2dp";
-    },
-    {
-      Switch,
-      text="普通 ColorStateList 类型资源\nNormal ColorStateList resources\n  res.colorStateList.mtrl_btn_stroke_color_selector",
-      textColor=res.colorStateList.mtrl_btn_stroke_color_selector;
-      layout_width="fill",
-      padding="2dp";
-      checked=true;
-    },
-    {
-      TextView,
-      text="android 下的普通颜色资源\nNormal color resources in android\n  android.res.color.holo_blue_light",
-      textColor=android.res.color.holo_blue_light;
-      layout_width="fill",
-      padding="2dp";
-    },
-    {
-      TextView,
-      text="actionBarTheme 主题的文字主色\nPrimary text color of actionBarTheme\n  android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary",
-      textColor=android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary;
-      layout_width="fill",
-      padding="2dp";
-    },
+    buildColorShow("强调色","Accent color",
+    "android.res.color.attr.colorAccent");
+    buildColorShow("文字主色的 ColorStateList 类型",
+    "ColorStateList type of the primary text color",
+    "android.res.colorStateList.attr.textColorPrimary",true);
+    buildColorShow("普通颜色资源","Normal color resources",
+    "res.color.seed");
+    buildColorShow("普通 ColorStateList 类型资源",
+    "Normal ColorStateList resources",
+    "res.colorStateList.mtrl_btn_stroke_color_selector",true);
+    buildColorShow("android 下的普通颜色资源",
+    "Normal color resources in android",
+    "android.res.color.holo_blue_light");
+    buildColorShow("actionBarTheme 主题的文字主色",
+    "Primary text color of actionBarTheme",
+    "android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary");
 
     divider;buildTitle("主题测试 | Theme test");
     {
@@ -66,81 +40,55 @@
     };
 
     divider;buildTitle("文字测试 | Text test");
-    {
-      TextView,
-      text="android.R.string.copy\n  android.res.string.copy : "..
-      android.res.string.copy..
-      "\n  android.res.text.copy : "..
-      android.res.text.copy;
-      layout_width="fill",
-      padding="2dp";
-    },
-    {
-      TextView,
-      text="R.string.abc_capital_off\n  res.string.abc_capital_off : "..
-      res.string.abc_capital_off..
-      "\n  res.text.abc_capital_off : "..
-      res.text.abc_capital_off;
-      layout_width="fill",
-      padding="2dp";
-    },
+    buildValueShow("android.R.string.copy",
+    {"android.res.string.copy","android.res.text.copy"});
+    buildValueShow("R.string.abc_capital_off",
+    {"res.string.abc_capital_off","res.text.abc_capital_off"});
+
     divider;buildTitle("布尔测试 | Boolean test");
-    {
-      TextView,
-      text="android.R.bool.config_showDefaultHome\n  android.res.bool.config_showDefaultHome : "..
-      tostring(android.res.bool.config_showDefaultHome)..
-      "\n  android.res.boolean.config_showDefaultHome : "..
-      tostring(android.res.boolean.config_showDefaultHome);
-      layout_width="fill",
-      padding="2dp";
-    },
+    buildValueShow("android.R.bool.config_showDefaultHome",
+    {"android.res.bool.config_showDefaultHome",
+      "android.res.boolean.config_showDefaultHome"});
+
     divider;buildTitle("数字测试 | Boolean test");
+    buildValueShow("android.R.integer.config_shortAnimTime",
+    {"android.res.integer.config_shortAnimTime","android.res.int.config_shortAnimTime"});
+    buildValueShow("R.integer.hide_password_duration",
+    {"res.integer.hide_password_duration","res.int.hide_password_duration"});
+    buildValueShow("R.dimen.tooltip_margin",
+    {"res.dimen.tooltip_margin",
+      "res.dimension.tooltip_margin",
+      "res.dimensionPixelSize.tooltip_margin",
+      "res.dimensionPixelOffset.tooltip_margin"});
+    
+    divider;buildTitle("附：常见示例 | Common demo");
     {
       TextView,
-      text="android.R.integer.config_shortAnimTime\n  android.res.integer.config_shortAnimTime : "..
-      android.res.integer.config_shortAnimTime..
-      "\n  android.res.int.config_shortAnimTime : "..
-      android.res.int.config_shortAnimTime;
-      layout_width="fill",
-      padding="2dp";
-    },
-    {
-      TextView,
-      text="R.integer.hide_password_duration\n  res.integer.hide_password_duration : "..
-      res.integer.hide_password_duration..
-      "\n  res.int.hide_password_duration : "..
-      res.int.hide_password_duration;
-      layout_width="fill",
-      padding="2dp";
-    },
-    divider;buildTitle("附：常见资源 | Common resources");
-    {
-      TextView,
-      text="强调色\nAccent color\n  android.res.color.attr.colorAccent",
+      text="强调色\nAccent color",
       textColor=android.res.color.attr.colorAccent;
       layout_width="fill",
-      padding="2dp";
+      padding="4dp";
     },
     {
       TextView,
-      text="暗色主色 / 状态栏颜色\nPrimary color / status bar color\n  android.res.color.attr.colorPrimaryDark",
+      text="暗色主色 / 状态栏颜色\nPrimary color / status bar color",
       textColor=android.res.color.attr.colorPrimaryDark;
       layout_width="fill",
-      padding="2dp";
+      padding="4dp";
     },
     {
       TextView,
-      text="文字主色的 ColorStateList 类型\nColorStateList type of the primary text color\n  android.res.colorStateList.attr.textColorPrimary",
+      text="文字主色的 ColorStateList 类型\nColorStateList type of the primary text color",
       textColor=android.res.colorStateList.attr.textColorPrimary;
       layout_width="fill",
-      padding="2dp";
+      padding="4dp";
     },
     {
       TextView,
-      text="表面内容色\nSurface content color\n  res.color.attr.colorOnSurface",
+      text="表面内容色\nSurface content color",
       textColor=res.color.attr.colorOnSurface;
       layout_width="fill",
-      padding="2dp";
+      padding="4dp";
     },
 
   }

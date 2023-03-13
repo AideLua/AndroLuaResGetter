@@ -1,5 +1,11 @@
 # AndroLua+ Res Getter
 
+[![license](https://img.shields.io/github/license/AideLua/AndroLuaResGetter)](LICENSE)
+[![Gitee 发行版](https://img.shields.io/github/v/tag/AideLua/AndroLuaResGetter?color=C71D23&label=发行版&logo=gitee)](https://gitee.com/AideLua/AndroLuaResGetter/releases/latest)
+
+[![Gitee 仓库](https://img.shields.io/badge/Gitee-仓库-C71D23?logo=gitee)](https://gitee.com/AideLua/AndroLuaResGetter)
+[![Github 仓库](https://img.shields.io/badge/Github-仓库-0969DA?logo=github)](https://github.com/AideLua/AndroLuaResGetter)
+
 ## 介绍
 
 在 AndroLua+ 中很方便地获取资源数据
@@ -9,7 +15,7 @@
 
 ## 软件架构
 
-* __res.lua__: 模块
+* __lua/res.lua__: 模块
 
 ## 安装教程
 
@@ -65,3 +71,7 @@ holoBlueLightColor = android.res.color.holo_blue_light
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
+
+## 感谢
+
+* [__JetBrainsMono__](https://github.com/JetBrains/JetBrainsMono): 代码部分的字体
