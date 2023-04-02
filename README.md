@@ -19,9 +19,9 @@
 
 ## 安装教程
 
-1.  复制 `res.lua` 到 `你的工程/lua` 内
-2.  在 `main.lua` 内导入 `import` 模块: `require "import"`
-3.  导入 `res` 模块: `import "res"`
+1. 复制 `res.lua` 到 `你的工程/lua` 内
+2. 在 `main.lua` 内导入 `import` 模块: `require "import"`
+3. 导入 `res` 模块: `import "res"`
 
 ## 使用说明
 

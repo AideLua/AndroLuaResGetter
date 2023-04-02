@@ -60,7 +60,7 @@
       "res.dimension.tooltip_margin",
       "res.dimensionPixelSize.tooltip_margin",
       "res.dimensionPixelOffset.tooltip_margin"});
-    
+
     divider;buildTitle("附：常见示例 | Common demo");
     {
       TextView,
@@ -90,6 +90,6 @@
       layout_width="fill",
       padding="4dp";
     },
-
+    divider;buildTitle("耗时 | Time consuming");
   }
 }
