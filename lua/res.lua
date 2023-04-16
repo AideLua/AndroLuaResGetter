@@ -1,15 +1,17 @@
+---@class ResGetterHolder
 local _M={}
-_M._VERSION="1.0 (alpha4) (dev)"
+_M._VERSION="1.0 (alpha4)"
 _M._VERSIONCODE=1004
 _M._NAME="Android Res Getter"
+_M._rClass=R
+_M._styleCacheMap={}--与 R 类绑定的样式的缓存，储存 res(xxx)
+_M._typeCacheMap={}--与样式绑定的类型的缓存，储存 res.xxx
 
---android.res
-local androidRes=table.clone(_M)
-android.res=androidRes
-androidRes._isAndroidRes=true
+local rCacheMap={}--R 类的缓存，储存 res
+rCacheMap[R]=_M
 
 ---默认值
----@type table<string,all>
+---@type table<string,any>
 local defaultAttrValues={
   color=0xFFFF0000,
   id=0,
@@ -35,6 +37,7 @@ local noDefaultAttrValues={
   text=true,
   textArray=true,
   type=true,
+  xml=true,
 }
 
 ---将键转换为java的方法名称
@@ -51,6 +54,7 @@ local key2ResGetterMap={
 }
 
 --将键转换为R的键
+---@type table<string,string>
 local key2RIndexMap={
   colorStateList="color",
   resourceId="id",
@@ -62,18 +66,25 @@ local key2RIndexMap={
   text="string",
 }
 
+local supportCacheGetterMap={
+  getColor=true,
+  getInteger=true,
+  getBoolean=true,
+  getDimension=true,
+  getResourceId=true,
+  getDimensionPixelSize=true,
+  getDimensionPixelOffset=true,
+  getFloat=true,
+  getInt=true,
+  getThemeAttributeId=true
+}
+
 local resources=activity.getResources()
 local contextTheme=activity.getTheme()
 
 local resMetatable,
 androidMetatable,typeMetatable,
 androidAttrMetatable,attrMetatable
-
---应用了样式的res索引
----@type table<number,table>
-local styledResMap={}
----@type table<number,table>
-local styledAndroidResMap={}
 
 ---将key转换为用于获取TypedArray的方法名
 ---@param key string 资源类型名称，也就是res.(xxxx)的这段
@@ -102,40 +113,39 @@ end
 ---@param style number 主题ID
 ---@return all value 获取到的值
 local function getAttrValue(_type,key,style)
-  local array
-  if style then
-    array=contextTheme.obtainStyledAttributes(style,{key})
-   else
-    array=contextTheme.obtainStyledAttributes({key})
-  end
+  style=style or 0--主题默认是0
+  local array=contextTheme.obtainStyledAttributes(style,{key})
+  local getterText=key2Getter(_type)
   local value
   if noDefaultAttrValues[_type] then
-    value=array[key2Getter(_type)](0)
+    value=array[getterText](0)
    else
-    value=array[key2Getter(_type)](0,defaultAttrValues[_type])
+    value=array[getterText](0,defaultAttrValues[_type])
   end
   array.recycle()
   luajava.clear(array)
-  return value
+  return value,getterText
 end
 
 typeMetatable={
   __index=function(self,key)
     local _type=rawget(self,"_type")
     local style=rawget(self,"_style")
-    local isAndroidRes=rawget(self,"_isAndroidRes")
+    local rClass=rawget(self,"_rClass")
     local value
     if key=="attr" then--res.xxx.attr
       ---@type ResGetterAttrHolder
-      value={_type=_type,_isAndroidRes=isAndroidRes,_style=style}
+      value={_type=_type,_rClass=rClass,_style=style}
       setmetatable(value,attrMetatable)
+      rawset(self,key,value)
      else--res.xxx.xxx
-      ---@type R
-      local Rid=isAndroidRes and android.R or R
-      ---@type all
-      value = resources[key2ResGetter(_type)](Rid[key2RIndex(_type)][key])
+      local resGetterText=key2ResGetter(_type)
+      ---@type any
+      value = resources[resGetterText](rClass[key2RIndex(_type)][key])
+      if supportCacheGetterMap[resGetterText] then
+        rawset(self,key,value)
+      end
     end
-    rawset(self,key,value)
     return value
   end,
   __type=function(self)
@@ -147,11 +157,11 @@ attrMetatable={
   __index=function(self,key)
     local _type=rawget(self,"_type")
     local style=rawget(self,"_style")
-    local isAndroidRes=rawget(self,"_isAndroidRes")
-    local value
-    local Rid=isAndroidRes and android.R or R
-    value=getAttrValue(_type,Rid.attr[key],style)
-    rawset(self,key,value)
+    local rClass=rawget(self,"_rClass")
+    local value,getterText=getAttrValue(_type,rClass.attr[key],style)
+    if supportCacheGetterMap[getterText] then
+      rawset(self,key,value)
+    end
     return value
   end,
   __type=function(self)
@@ -161,31 +171,85 @@ attrMetatable={
 
 resMetatable={
   __index=function(self,key)
-    local isAndroidRes=rawget(self,"_isAndroidRes")
+    local rClass=rawget(self,"_rClass")
+    local typeCacheMap=rawget(self,"_typeCacheMap")
     local style=rawget(self,"_style")
-    ---@type ResGetterTypeHolder
-    local typeT={_type=key,_isAndroidRes=isAndroidRes,_style=style}
-    setmetatable(typeT,typeMetatable)
-    return typeT
-  end,
-  __call=function(self,key)
-    local isAndroidRes=rawget(self,"_isAndroidRes")
-    local map=isAndroidRes and styledAndroidResMap or styledResMap
-    local styled=map[key]
-    if not styled then
-      ---@type ResGetterHolder
-      styled={_isAndroidRes=isAndroidRes,_style=key}
-      setmetatable(styled,resMetatable)
-      map[key]=styled
+    local typed=typeCacheMap[key]
+    if not typed then
+      ---@type ResGetterTypeHolder
+      typed={_type=key,_rClass=rClass,_style=style}
+      setmetatable(typed,typeMetatable)
+      typeCacheMap[key]=typed
     end
-    return styled
+    return typed
+  end,
+  __call=function(self,styleOrRClass)
+    local styleOrRClassType=type(styleOrRClass)
+    if styleOrRClassType=="number" then
+      return _M.getOrNewResWithStyle(self,styleOrRClass)
+     elseif styleOrRClassType=="userdata" then
+      return _M.getOrNewResWithRClass(styleOrRClass)
+     else
+      error("styleOrRClass must be a number or R class.",2)
+    end
   end,
   __type=function(self)
     return "ResGetterHolder"
   end
 }
 
+---获取或者新建一个指定了样式的 res 对象
+---@param style number 样式ID
+---@return ResGetterHolder res
+function _M:getOrNewResWithStyle(style)
+  local rClass=rawget(self,"_rClass")
+  local styleCacheMap=rawget(self,"_styleCacheMap")
+
+  local styled=styleCacheMap[style]
+  if not styled then
+    local typeCacheMap={}
+    ---@type ResGetterHolder
+    styled={_rClass=rClass,_style=style,_styleCacheMap=styleCacheMap,_typeCacheMap=typeCacheMap}
+    setmetatable(styled,resMetatable)
+    styleCacheMap[style]=styled
+  end
+  return styled
+end
+
+---获取或者新建一个指定了 R 类的 res 对象
+---@param rClass Object R类
+---@return ResGetterHolder res
+function _M.getOrNewResWithRClass(rClass)
+  local className=rClass.getName()
+  local setted=rCacheMap[className]
+  if not setted then
+    local styleCacheMap={}
+    local typeCacheMap={}
+    ---@type ResGetterHolder
+    setted={_rClass=rClass,_styleCacheMap=styleCacheMap,_typeCacheMap=typeCacheMap}
+    setmetatable(setted,resMetatable)
+    rCacheMap[className]=setted
+  end
+  return setted
+end
+
+---清除缓存，刷新资源。这在配置文件动态修改时候很有用
+function _M:clearCache()
+  rawset(self,"_styleCacheMap",{})
+  rawset(self,"_typeCacheMap",{})
+end
+
+---设置支持缓存的 Getter 名称
+---@param getterText string Getter 名称
+---@param state boolean 是否启用缓存，不会对已缓存的资源生效
+function _M.setSupportCacheGetterMap(getterText,state)
+  supportCacheGetterMap[getterText]=state
+end
+
 setmetatable(_M,resMetatable)
-setmetatable(androidRes,resMetatable)
+
+---android.res
+---@type ResGetterHolder
+android.res=_M.getOrNewResWithRClass(android.R)
 
 return _M

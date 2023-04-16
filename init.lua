@@ -1,5 +1,5 @@
 appname="Android Res Getter"
-appver="1.0 (alpha4) (dev)"
+appver="1.0 (alpha4)"
 appcode="1004"
 appsdk="15"
 path_pattern=""

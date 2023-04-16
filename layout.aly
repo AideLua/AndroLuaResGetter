@@ -25,9 +25,12 @@
     buildColorShow("android 下的普通颜色资源",
     "Normal color resources in android",
     "android.res.color.holo_blue_light");
-    buildColorShow("actionBarTheme 主题的文字主色",
-    "Primary text color of actionBarTheme",
-    "android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary");
+    buildColorShow("actionBarStyle 主题的文字色",
+    "Primary text color of actionBarStyle",
+    "android.res(res.id.attr.actionBarStyle).color.attr.textColorPrimary");
+    buildColorShow("EMUI 主题强调色",
+    "EMUI accent color",
+    "android.res(androidhwext.R).color.emui_accent");
 
     divider;buildTitle("主题测试 | Theme test");
     isAndroidX and{
@@ -38,6 +41,17 @@
       subtitle="res.id.attr.actionBarTheme : "..
       res.id.attr.actionBarTheme;
     };
+
+    divider;buildTitle("图片测试 | Drawable test");
+    buildBgShow("原生的 actionBarStyle 主题的背景",
+    "Background of system actionBarStyle",
+    "android.res(android.res.id.attr.actionBarStyle).drawable.attr.background");
+    buildBgShow("AndroidX 的 actionBarStyle 主题的背景",
+    "Background of actionBarStyle",
+    "res(res.id.attr.actionBarStyle).drawable.attr.background");
+    buildBgShow("EMUI 平板图片",
+    "EMUI pad image",
+    "res(androidhwext.R).drawable.img_device_pad");
 
     divider;buildTitle("文字测试 | Text test");
     buildValueShow("android.R.string.copy",
@@ -61,7 +75,64 @@
       "res.dimensionPixelSize.tooltip_margin",
       "res.dimensionPixelOffset.tooltip_margin"});
 
-    divider;buildTitle("附：常见示例 | Common demo");
+    divider;buildTitle("缓存测试 | Cache test");
+    buildValueShow("R.color.mtrl_btn_stroke_color_selector",
+    {"res.colorStateList.mtrl_btn_stroke_color_selector",
+      "res.colorStateList.mtrl_btn_stroke_color_selector",
+      "res.colorStateList.mtrl_btn_stroke_color_selector",
+      "res.colorStateList.mtrl_btn_stroke_color_selector"});
+
+    buildValueShow("res.color",
+    {"res.color",
+      "res.color",
+      "android.res.color",
+      "android.res.color"});
+
+    buildValueShow("res.int",
+    {"res.int",
+      "res.int",
+      "android.res.int",
+      "android.res.int"});
+
+    buildValueShow("res.drawable",
+    {"res.drawable",
+      "res.drawable",
+      "android.res.drawable.sym_def_app_icon",
+      "android.res.drawable.sym_def_app_icon"});
+
+    buildValueShow("res:getOrNewResWithStyle(res.id.attr.actionBarStyle)",{
+      "res:getOrNewResWithStyle(res.id.attr.actionBarStyle)",
+      "res:getOrNewResWithStyle(res.id.attr.actionBarStyle)",
+      "res(res.id.attr.actionBarStyle)",
+      "res(res.id.attr.actionBarStyle)",
+      "res.getOrNewResWithStyle(android.res,android.res.id.attr.actionBarStyle)",
+      "res.getOrNewResWithStyle(android.res,android.res.id.attr.actionBarStyle)",
+      "android.res(android.res.id.attr.actionBarStyle)",
+      "android.res(android.res.id.attr.actionBarStyle)"});
+
+    buildValueShow("res.getOrNewResWithRClass(rClass)",
+    {"res.getOrNewResWithRClass(androidhwext.R)",
+      "res.getOrNewResWithRClass(androidhwext.R)",
+      "res(androidhwext.R)",
+      "res(androidhwext.R)",
+      "res.getOrNewResWithRClass(luajava.bindClass(\"com.google.android.material.R\"))",
+      "res.getOrNewResWithRClass(luajava.bindClass(\"com.google.android.material.R\"))",
+      "res(luajava.bindClass(\"com.google.android.material.R\"))",
+      "res(luajava.bindClass(\"com.google.android.material.R\"))"});
+
+    buildValueShow("res:clearCache()",{
+      "res.color",
+      "res:clearCache()",
+      "res.color",
+      "res(androidhwext.R).color",
+      "res.clearCache(res(androidhwext.R))",
+      "res(androidhwext.R).color",
+      "android.res.drawable.sym_def_app_icon",
+      "res.clearCache(android.res)",
+      "android.res.drawable.sym_def_app_icon"});
+
+    --附录
+    divider;buildTitle("附1：常见示例 | Common demo");
     {
       TextView,
       text="强调色\nAccent color",
@@ -83,14 +154,168 @@
       layout_width="fill",
       padding="4dp";
     },
-  --[[
-    {
+    --以下内容仅支持 Material3 的编辑器可用，为了兼容原版Android，使用了 isAndroidX 选择性显示下面的东西
+    --请在使用时请删除 `isAndroidX and` 和 `or nil`
+    --注意：主要色、次要色、第三级颜色不一样，AndroidX为了统一，改成一样的了。详情: https://zhuanlan.zhihu.com/p/460081776
+    isAndroidX and divider or placeholderView;
+    isAndroidX and buildTitle("附2：常见 Material 3 示例 | Common Material 3 demo") or placeholderView;
+
+    isAndroidX and {
       TextView,
-      text="表面内容色\nSurface content color",
-      textColor=res.color.attr.colorOnSurface;
+      text="主要色\nPrimary color",
+      textColor=res.color.attr.colorOnPrimary;
+      backgroundColor=res.color.attr.colorPrimary;
       layout_width="fill",
       padding="4dp";
-    },]]
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="主要容器色\nPrimary container color",
+      textColor=res.color.attr.colorOnPrimaryContainer;
+      backgroundColor=res.color.attr.colorPrimaryContainer;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="次要色\nSecondary color",
+      textColor=res.color.attr.colorOnSecondary;
+      backgroundColor=res.color.attr.colorSecondary;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="次要容器色\nSecondary container color",
+      textColor=res.color.attr.colorOnSecondaryContainer;
+      backgroundColor=res.color.attr.colorSecondaryContainer;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="第三级色\nTertiary color",
+      textColor=res.color.attr.colorOnTertiary;
+      backgroundColor=res.color.attr.colorTertiary;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="第三级容器色\nTertiary container color",
+      textColor=res.color.attr.colorOnTertiaryContainer;
+      backgroundColor=res.color.attr.colorTertiaryContainer;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="错误色\nError color",
+      textColor=res.color.attr.colorOnError;
+      backgroundColor=res.color.attr.colorError;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="错误容器色\nError container color",
+      textColor=res.color.attr.colorOnErrorContainer;
+      backgroundColor=res.color.attr.colorErrorContainer;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="表面色\nSurface color",
+      textColor=res.color.attr.colorOnSurface;
+      backgroundColor=res.color.attr.colorSurface;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="变种表面色\nVariant surface color",
+      textColor=res.color.attr.colorOnSurfaceVariant;
+      backgroundColor=res.color.attr.colorSurfaceVariant;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="背景色\nBackground color",
+      textColor=res.color.attr.colorOnBackground;
+      backgroundColor=android.res.color.attr.colorBackground;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isAndroidX and {
+      TextView,
+      text="边框色\nOutline color",
+      backgroundColor=res.color.attr.colorOutline;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isSdk31AndUp and divider or placeholderView;
+    isSdk31AndUp and buildTitle("附3：Android 12 壁纸取色示例 | Android 12 wallpaper color demo") or placeholderView;
+
+    isSdk31AndUp and {
+      TextView,
+      text="系统强调色1\nSystem accent color 1",
+      textColor=android.res.color.system_accent1_50;
+      backgroundColor=android.res.color.system_accent1_600;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isSdk31AndUp and {
+      TextView,
+      text="系统强调色2\nSystem accent color 2",
+      textColor=android.res.color.system_accent2_50;
+      backgroundColor=android.res.color.system_accent2_600;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isSdk31AndUp and {
+      TextView,
+      text="系统强调色3\nSystem accent color 3",
+      textColor=android.res.color.system_accent3_50;
+      backgroundColor=android.res.color.system_accent3_600;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isSdk31AndUp and {
+      TextView,
+      text="系统中立色1\nSystem neutral color 1",
+      textColor=android.res.color.system_neutral1_50;
+      backgroundColor=android.res.color.system_neutral1_600;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+
+    isSdk31AndUp and {
+      TextView,
+      text="系统中立色2\nSystem neutral color 2",
+      textColor=android.res.color.system_neutral1_50;
+      backgroundColor=android.res.color.system_neutral2_600;
+      layout_width="fill",
+      padding="4dp";
+    } or placeholderView,
+    --更多颜色请查看 Android 12 自带的彩蛋
+
     divider;buildTitle("耗时 | Time consuming");
   }
 }

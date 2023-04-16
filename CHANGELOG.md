@@ -2,6 +2,12 @@
 
 ## v1.0 (alpha4)
 
+1. 支持获取 XML
+2. 新增 `res.getOrNewResWithRClass(rClass)`，相当于 `res(rClass)` ，用于指定 `R` 类
+3. 新增 `res.getOrNewResWithStyle(resWithRClass,style)`，相当于 `res(style)` ，用于指定主题 ID
+4. 新增 `res:clearCache()` 清除缓存，用于在配置更改时刷新资源
+5. 新增 `res.setSupportCacheGetterMap(getterText,state)` 设置支持缓存的 Getter
+6. 修复 `ResGetterTypeHolder` 未被缓存的问题
 
 ## v1.0 (alpha3)
 
