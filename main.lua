@@ -223,7 +223,7 @@ local after100000GetColorTestTime=System.currentTimeMillis()
 
 table.insert(layout[2],{
   TextView,
-  text="获取统100000次颜色耗时:"..after100000GetColorTestTime-afterLoadLayTime,
+  text="获取100000次颜色耗时:"..after100000GetColorTestTime-afterLoadLayTime,
   textColor=android.res.color.attr.textColorPrimary;
   layout_width="fill",
   padding="4dp";
@@ -236,7 +236,7 @@ local after1000GetDrawableTestTime=System.currentTimeMillis()
 
 table.insert(layout[2],{
   TextView,
-  text="获取统1000次图片耗时:"..after1000GetDrawableTestTime-after100000GetColorTestTime,
+  text="获取1000次图片耗时:"..after1000GetDrawableTestTime-after100000GetColorTestTime,
   textColor=android.res.color.attr.textColorPrimary;
   layout_width="fill",
   padding="4dp";
@@ -252,7 +252,7 @@ local after100000GetCacheDrawableTestTime=System.currentTimeMillis()
 
 table.insert(layout[2],{
   TextView,
-  text="获取统100000次缓存后图片耗时:"..after100000GetCacheDrawableTestTime-after1000GetDrawableTestTime,
+  text="获取100000次缓存后图片耗时:"..after100000GetCacheDrawableTestTime-after1000GetDrawableTestTime,
   textColor=android.res.color.attr.textColorPrimary;
   layout_width="fill",
   padding="4dp";
