@@ -15,16 +15,19 @@ import "android.text.Spannable"
 import "android.text.SpannableString"
 import "android.text.style.ForegroundColorSpan"
 import "android.graphics.Typeface"
-import "androidx.appcompat.widget.Toolbar"
-import "androidx.appcompat.view.ContextThemeWrapper"
 import "res"
 
 --以下是封装好的各种各样的代码。如需使用请查看 README.md 以及 layout.aly 最后的demo
-
-assert(pcall(function()
-  activity.setTheme(R.style.Theme_Material3_DayNight)
-end),"请在 AndroLuaX 中打开")
-
+local isAndroidX=false
+xpcall(function()
+  import "androidx.appcompat.widget.Toolbar"
+  import "androidx.appcompat.view.ContextThemeWrapper"
+  activity.setTheme(R.style.Theme_Material3_DynamicColors_DayNight)
+  isAndroidX=true
+end,
+function()
+  activity.setTheme(android.R.style.Theme_Material_Light)
+end)
 
 local codeTypeface=Typeface.createFromFile(activity.getLuaDir().."/JetBrainsMono-Regular.ttf")
 
@@ -48,7 +51,7 @@ function pcallLoadCode(code,showError)
   if success then
     return value
    elseif showError then
-    return "您的设备无此资源资源:\n"..value
+    return "您的设备或编译器无此资源资源:\n"..value
   end
 end
 
@@ -59,7 +62,7 @@ function buildTitle(text)
   return {
     TextView,
     text=text;
-    textColor=res.color.attr.colorPrimary;
+    textColor=android.res.color.attr.colorAccent;
     textSize="14sp";
     padding="4dp";
     paddingTop="8dp";
@@ -151,13 +154,13 @@ local afterLoadLayTime=System.currentTimeMillis()
 table.insert(layout[2],{
   TextView,
   text="获取资源耗时:"..afterLoadLayTime-afterLoadModuleTime,
-  textColor=res.color.attr.colorOnSurface;
+  textColor=android.res.color.attr.textColorPrimary;
   layout_width="fill",
   padding="4dp";
 })
 
 activity.setContentView(loadlayout(layout))--显示版本信息
-actionBar=activity.getSupportActionBar()
+actionBar=isAndroidX and activity.getSupportActionBar() or activity.getActionBar()
 actionBar.setSubtitle("v"..res._VERSION)
 
 local endTime=System.currentTimeMillis()

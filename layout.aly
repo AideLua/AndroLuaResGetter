@@ -30,7 +30,7 @@
     "android.res(res.id.attr.actionBarTheme).color.attr.textColorPrimary");
 
     divider;buildTitle("主题测试 | Theme test");
-    {
+    isAndroidX and{
       function(context)
         return Toolbar(ContextThemeWrapper(context,res.id.attr.actionBarTheme))
       end;
@@ -83,13 +83,14 @@
       layout_width="fill",
       padding="4dp";
     },
+  --[[
     {
       TextView,
       text="表面内容色\nSurface content color",
       textColor=res.color.attr.colorOnSurface;
       layout_width="fill",
       padding="4dp";
-    },
+    },]]
     divider;buildTitle("耗时 | Time consuming");
   }
 }
